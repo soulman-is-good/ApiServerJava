@@ -23,7 +23,7 @@ import org.json.JSONObject;
  * @author maxim
  */
 public class SessionManager extends HashMap<String, Object> implements Serializable {
-  
+
   private String token;
   final private String key;
   private Request req;
@@ -33,23 +33,23 @@ public class SessionManager extends HashMap<String, Object> implements Serializa
     this.key = "asid";
     this.req = req;
     this.token = req.cookies.getString(this.key);
-    this.database = PostgresDatabase.getInstance();
+    /*this.database = PostgresDatabase.getInstance();
     try {
       JSONArray arr;
       JSONObject params = new JSONObject();
-      if(this.token != null) {
+      if (this.token != null) {
         params.put("session_token", this.token);
       }
       arr = database.exec("sec.post_session", params);
       //TODO: pass token
       String new_token = arr.getJSONObject(0).getString("session_token");
-      if(token == null ? new_token != null : !token.equals(new_token)) {
+      if (token == null ? new_token != null : !token.equals(new_token)) {
         token = new_token;
         req.cookies.setCookie(this.key, this.token);
       }
     } catch (SQLException ex) {
       Logger.getLogger(SessionManager.class.getName()).log(Level.SEVERE, null, ex);
-    }
+    }*/
   }
 
   public byte[] serialize() {

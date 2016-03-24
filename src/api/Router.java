@@ -42,27 +42,21 @@ public class Router implements HttpHandler {
    */
   @Override
   public void handle(final HttpExchange he) throws IOException {
-
+    System.out.println(he.getRequestURI().getPath());
     final Request req = new Request(he);
     final Response res = new Response(he, req);
     String schema = "public";
     String func = null;
-
-    if ("/favicon.ico".equals(res.getRequestURI().getPath())) {
-      res.end();
-      return;
-    }
-    String[] path = req.getURI().getPath().split("/");
-    if (path.length <= 1) {
+    String url = req.getURI().getPath().substring(1);
+    String[] path = url.split("/");
+    if ("/favicon.ico".equals(url) || path.length < 2) {
       res.setStatus(404);
       res.setBody("Not Found");
       res.end();
-    } else if (path.length == 2) {
-      func = path[1];
-    } else {
-      schema = path[1];
-      func = path[2];
+      return;
     }
+    schema = path[0];
+    func = path[1];
     try {
       JSONObject params = null;
       //TODO: allow only approved

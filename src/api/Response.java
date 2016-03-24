@@ -58,6 +58,7 @@ public class Response extends EventEmitter {
       handled = true;
       this.emit("end", this);
       System.out.printf("%s %d %s %s %d ms\r\n", he.getRequestMethod(), this.getStatus(), he.getRequestURI().getPath(), he.getRemoteAddress(), System.currentTimeMillis() - time);
+      he.close();
     } catch (IOException ex) {
       Logger.getLogger(Response.class.getName()).log(Level.SEVERE, null, ex);
     }

@@ -33,7 +33,8 @@ public class Api {
     server = HttpServer.create(new InetSocketAddress(port), 0);
   }
 
-  public Api start() {
+  public Api start() throws IOException {
+    this.mapRoutes();
     server.setExecutor(null);
     server.start();
     System.out.printf("%s %s:%d\r\n", "Server started at", host, port);
@@ -55,6 +56,6 @@ public class Api {
   public static void main(String[] args) throws IOException {
     Api.env = System.getenv();
     Api app = new Api(args);
-    app.mapRoutes().start();
+    app.start();
   }
 }

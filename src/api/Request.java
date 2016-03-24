@@ -43,8 +43,10 @@ public class Request extends EventEmitter {
     body = new byte[0];
     uri = he.getRequestURI();
     try {
-      readBody(he.getRequestBody());
-      parseBody();
+      if (he.getRequestBody().available() > 0) {
+        readBody(he.getRequestBody());
+        parseBody();
+      }
       queryParameters = parseUrl(uri.getQuery());
     } catch (IOException ex) {
       Logger.getLogger(Request.class.getName()).log(Level.SEVERE, null, ex);
